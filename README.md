@@ -1,6 +1,6 @@
-##EECS 341 Project.
+# EECS 341 Project.
 
-Contributors:
-	Yidi Huang
-	Zicheng (Brian) Gao
-	Helen Zhao
+### Group:
+- Yidi Huang
+- Zicheng (Brian) Gao
+- Helen Zhao
