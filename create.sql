@@ -12,7 +12,6 @@ CREATE TABLE Library(
 	PRIMARY KEY (lib_id)
 );
 
-
 CREATE TABLE Authors(
 	author_id 	VARCHAR(10) NOT NULL,
 	name 	CHAR(50) NOT NULL,
@@ -34,7 +33,7 @@ CREATE TABLE Media(
 	subject	CHAR(50),
 	keywords	CHAR(100),
 	PRIMARY KEY (ISBN, insta_no),
-	CHECK (status in (‘AVAILABLE’, ’NOT AVAILABLE’)
+	CHECK (status in ('AVAILABLE', 'NOT AVAILABLE')
 );
 
 CREATE TABLE Book(
