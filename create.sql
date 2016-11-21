@@ -25,7 +25,7 @@ CREATE TABLE Media(
 	ISBN 	NUMERIC(13,0) NOT NULL, 
 	insta_no 	NUMERIC(3,0) NOT NULL, 	
 	lib_id 	VARCHAR(10) NOT NULL, 
-	status	CHAR(20) 
+	status	CHAR(20),
 	title 	CHAR(100) NOT NULL, 
 	genre 	CHAR(50),
 	language	CHAR(50),
@@ -33,7 +33,7 @@ CREATE TABLE Media(
 	year 	NUMERIC(4,0),
 	subject	CHAR(50),
 	keywords	CHAR(100),
-	PRIMARY KEY (ISBN, insta_no)
+	PRIMARY KEY (ISBN, insta_no),
 	CHECK (status in (‘AVAILABLE’, ’NOT AVAILABLE’)
 );
 
@@ -73,8 +73,8 @@ CREATE TABLE Checkout(
 	insta_no 	NUMERIC(3,0) NOT NULL,
 	card_id 	VARCHAR(10) NOT NULL, 
 	dateout	DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-	expiry	DATETIME NOT NULL DEFAULT 
-	renewals	INT DEFAULT 0
+	expiry	DATETIME NOT NULL DEFAULT,
+	renewals	INT DEFAULT 0,
 	PRIMARY KEY (ISBN, insta_no, card_id),
 	FOREIGN KEY (ISBN, insta_no) REFERENCES Media,
 	FOREIGN KEY (card_id) REFERENCES Cardholder
@@ -86,8 +86,7 @@ CREATE TABLE Reserve(
 	card_id 	VARCHAR(10) NOT NULL, 	
 	dest_lib	VARCHAR(10) NOT NULL,
 	checkout	DATE NOT NULL, 
-	expiry	DATE NOT NULL, 
-	avaliable 	
+	expiry	DATE NOT NULL,
 	PRIMARY KEY (ISBN, insta_no, card_id),
 	FOREIGN KEY (ISBN, insta_no) REFERENCES Media,
 	FOREIGN KEY (card_id) REFERENCES Cardholder
@@ -98,7 +97,7 @@ CREATE TABLE Loan(
 	borrlib	VARCHAR(10) NOT NULL,
 	ISBN 	NUMERIC(13,0) NOT NULL, 
 	insta_no 	NUMERIC(3,0) NOT NULL,
-	PRIMARY KEY (lib_id, lib_id, ISBN, insta_no)
-	FOREIGN KEY (loanlib_id, brwlib_id) REFERENCES Library
+	PRIMARY KEY (lib_id, lib_id, ISBN, insta_no),
+	FOREIGN KEY (loanlib_id, brwlib_id) REFERENCES Library,
 	FOREIGN KEY (ISBN, insta_no) REFERENCES Media
 );
