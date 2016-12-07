@@ -9,7 +9,14 @@
 
 Please have meteor first installed.
 
+#### Development: 
 ```
 cd lhbary
-meteor
+meteor -p xxxx --settings imports/devel_settings.json
+```
+
+#### Production:
+```
+cd lhbary
+meteor -p xxxx --settings imports/prod_settings.json
 ```
