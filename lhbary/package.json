@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.18.0",
-    "meteor-node-stubs": "~0.2.0"
+    "meteor-node-stubs": "~0.2.0",
     "mysql": "^2.12.0",
     "mysql-live-select": "^1.0.6"
   },
