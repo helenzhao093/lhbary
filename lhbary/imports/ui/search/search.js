@@ -17,16 +17,16 @@ Template.title_search.events({
 	}
 })
 
-var liveDb = new LiveMysql(Meteor.settings.mysql);
 
-Meteor.publish('keywordSearch', function(words) {
-	// Escape to prevent injection
-	// TODO - commit first
-	return liveDb.select(
-		'SELECT * FROM players ORDER BY score DESC',
-		[ { table: 'players' } ]
-		);
-})
+// TODO: Advanced search
+
+/* Working publication template */
+// Meteor.publish('test', function(params) {
+//     return liveDb.select(
+//         `SELECT * FROM Library WHERE lib_id='${params['lib_id']}`,
+//         [{ table: 'Library' }]
+//     );
+// })
 
 
 

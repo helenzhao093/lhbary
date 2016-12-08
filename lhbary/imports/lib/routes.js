@@ -1,5 +1,7 @@
 import '../ui/layout.js';
 import '../ui/home/home.js';
+import '../ui/search/search.js';
+import '../ui/search_results/search_results.js';
 
 
 //Home page
