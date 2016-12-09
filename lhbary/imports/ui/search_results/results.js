@@ -2,9 +2,10 @@ import { Template } from 'meteor/templating';
 
 import './results.html';
 
-Template.body.oncreated(function onBodyCreated() {
+Template.body.onCreated(function onBodyCreated() {
 	this.state = new ReactiveDict();
-	keywordSearch = new MysqlSubscription('keywordSearch');
+	words = FlowRouter.getParam('query');
+	keywordSearch = new MysqlSubscription('keywordSearch', words);
 	ISBNSearch = new MysqlSubscription('ISBNSearch');
 	// TODO: Advanced search	
 })

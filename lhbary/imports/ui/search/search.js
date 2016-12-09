@@ -1,15 +1,16 @@
 import { Template } from 'meteor/templating';
+import './search.html';
 
-import './results.html';
-
-Template.title_search.events({
-	'submit form_simple_search'(event) {
+Template.body.events({
+	'submit .form_simple_search'(event) {
+		console.log("submitted form");
 		event.preventDefault();
 
 		const target = event.target;
 		const text = target.text.value;
 
-		const words = text.split(' ');
+		console.dir(keyword_search);
+		FlowRouter.go('/search_results', text);
 		// pass in words to SQL query for
 		// keywords,
 		// titles,
@@ -27,6 +28,7 @@ Template.title_search.events({
 //         [{ table: 'Library' }]
 //     );
 // })
+
 
 
 

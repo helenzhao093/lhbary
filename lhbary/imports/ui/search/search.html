@@ -3,7 +3,9 @@
 	<!-- Displayed plainly -->
 	<div id="keyword_search">
 		Search by keyword (Title, Keywords, Author):
-		{{> keyword_search}}
+		<form class="form_simple_search">
+			<input type="text" name="text" placeholder="Enter a title"/>
+		</form>
 	</div>
 
 	<div class="dropdown">
@@ -14,12 +16,6 @@
 	</div>
 
 
-</template>
-
-<template name="keyword_search">
-	<form class="form_simple_search">
-		<input type="text" name="text" placeholder="Enter a title"/>
-	</form>
 </template>
 
 <template name="advanced_search">
