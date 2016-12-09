@@ -1,0 +1,19 @@
+import { Template } from 'meteor/templating';
+
+import './checkout.html';
+
+Template.Checkout.helpers({
+//    'submit form': function(){
+//	event.preventDefault();
+//
+//	const target = event.target;
+//	const text = target.text.value;
+//	db.Post.insert([
+//	    {
+//	    ISBN: text
+//	    insta_no:""
+//	    card_id:""
+//	}
+//    ])
+//    }
+});

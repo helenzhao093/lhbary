@@ -9,9 +9,42 @@ var liveDb = new LiveMysql(Meteor.settings.mysql);
 //         [{ table: 'Library' }]
 //     );
 // })
+//Meteor.users.insert({username: 'ACX0125', password: 'hello1'});
+
+
+Meteor.publish('libraryInfo', function(lib){
+    
+    return liveDb.select(
+	'SELECT * FROM Library WHERE lib_id = ' + liveDb.db.escape(lib),
+	[{ table: 'Library' }]
+    );
+})
+
+Meteor.publish('checkoutMedia', function(params){
+    return liveDb.select(
+	`SELECT C.ISBN, C.insta_no, C.card_id FROM Checkout C NATURAL JOIN Media M WHERE M.lib_id = '${params['lib_id']}'`,
+	[{ table: 'Checkout' }, {table: 'Media'}]
+    );
+})
+
+Meteor.publish('reservedAtLib', function(params){
+    return liveDb.select(
+	`SELECT ISBN, insta_no, card_id FROM Reserve WHERE dest_lib = '${params['dest_lib']}'`,
+	[{ table: 'Reserve' }]
+    );
+})
+
+Meteor.methods({
+    'insertCheckout': function(ISBN, insta_no, card_id, checkdate){
+	liveDb.db.query(
+	    'INSERT INTO Checkout VALUES ( ? )', [ISBN, insta_no, card_id, checkdate]);
+    }
+});
+
 
 // Closing connections between hot code-pushes
 // as per https://github.com/numtel/meteor-mysql#closing-connections-between-hot-code-pushes
+
 var closeAndExit = function() {
     liveDb.end();
     process.exit();
