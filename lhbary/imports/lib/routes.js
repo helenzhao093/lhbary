@@ -1,6 +1,8 @@
+import './at_config.js';
+
 import '../ui/layout.js';
 import '../ui/home/home.js';
-
+import '../ui/login/login.js';
 
 //Home page
 FlowRouter.route('/', {
@@ -30,7 +32,7 @@ FlowRouter.route('/search_results', {
 
 //Dashboard
 FlowRouter.route('/dashboard', {
-    //TODO: Logged-in logic
+    triggersEnter: [AccountsTemplates.ensureSignedIn],
     action: function() {
         BlazeLayout.render('App_layout', {main: 'Dashboard'});
     },
@@ -46,9 +48,19 @@ FlowRouter.route('/checkout', {
 });
 
 //Login page
-FlowRouter.route('/login', {
-    action: function() {
-        BlazeLayout.render('App_layout', {main: 'Login'});
-    },
+// FlowRouter.route('/login', {
+//     action: function() {
+//         BlazeLayout.render('App_layout', {main: 'Login'});
+//     },
+//     name: 'login',
+// });
+
+AccountsTemplates.configureRoute('signIn', {
+    layoutType: 'blaze',
     name: 'login',
+    path: '/login',
+    layoutTemplate: 'App_layout',
+    layoutRegions: {},
+    contentRegion: 'main',
+    redirect: '/dashboard',
 });

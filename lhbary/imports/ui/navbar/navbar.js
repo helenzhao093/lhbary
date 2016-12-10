@@ -1,6 +1,5 @@
-// Add to active page
-// <span class="sr-only">(current)</span>
 import './navbar.html';
+import './navbar.css';
 
 Template.Navbar.onRendered(function() {
     Tracker.autorun(function() {
@@ -8,14 +7,14 @@ Template.Navbar.onRendered(function() {
         $(`.nav-link.active`).removeClass('active');
         $(`span.sr-only`).remove();
 
-        $(`.nav-link#${route}`).addClass('active';)
+        $(`.nav-link#${route}`).addClass('active');
         $(`nav-link.active`).prepend(`<span class="sr-only">(current)</span>`);
     });
 });
 
 Template.Navbar.events({
-    'click .nav-link'(event) {
+    'click .nav-item'(event) {
         event.preventDefault();
-        FlowRouter.go(event.target.id);
+        FlowRouter.go(event.currentTarget.id);
     }
 });
