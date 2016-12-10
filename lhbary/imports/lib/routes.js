@@ -19,7 +19,7 @@ FlowRouter.route('/search', {
 });
 
 //Search results
-FlowRouter.route('/search_results/:query', {
+FlowRouter.route('/search_results', {
     action: function(params, queryParams) {
         BlazeLayout.render('App_layout', {main: 'Search_results'});
     }

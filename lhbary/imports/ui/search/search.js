@@ -1,22 +1,23 @@
 import { Template } from 'meteor/templating';
 import './search.html';
 
-Template.body.events({
+Template.Search.events({
 	'submit .form_simple_search'(event) {
-		console.log("submitted form");
+		console.log("submit.");
 		event.preventDefault();
 
 		const target = event.target;
 		const text = target.text.value;
 
 		console.dir(keyword_search);
-		FlowRouter.go('/search_results', text);
+		var path = FlowRouter.path('/search_results', {}, {keywords: text});
+		FlowRouter.go(path);
 		// pass in words to SQL query for
 		// keywords,
 		// titles,
 		// authors
-	}
-})
+	},
+});
 
 
 // TODO: Advanced search

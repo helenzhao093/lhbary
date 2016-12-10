@@ -1,15 +1,26 @@
 <template name="Search_results">
-	<ul>
+	<h1 class="page-header">Search Results</h1>
+
+	<table class="table">
+		<thead class="thead-inverse">
+			<tr>
+				<th>ISBN</th>
+				<th>Instance</th>
+				<th>Title</th>
+			</tr>
+		</thead>
 		{{#each results}}
-			{{> result}}
+		<tr>
+			<th>{{ISBN}}</th>
+			<th>{{insta_no}}</th>
+			<th>{{title}}</th>
+		</tr>
 		{{/each}}
-	</ul>
+	</table>
 
 	<div id="back">
 		<a href="./search.html">Back</a>
+		<!-- TODO - use routing -->
 	</div>
 </template>
 
-<template name="result">
-	
-</template>

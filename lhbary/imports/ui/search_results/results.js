@@ -2,16 +2,27 @@ import { Template } from 'meteor/templating';
 
 import './results.html';
 
-Template.body.onCreated(function onBodyCreated() {
-	this.state = new ReactiveDict();
-	words = FlowRouter.getParam('query');
-	keywordSearch = new MysqlSubscription('keywordSearch', words);
-	ISBNSearch = new MysqlSubscription('ISBNSearch');
-	// TODO: Advanced search	
-})
+var results;
 
-// Template.body.helpers({
-	// should contain array of media info
-	// returned from search
-	// results: [] 
-// })
+Template.Search_results.onCreated(function() {
+	this.currentTab = new ReactiveVar();
+	// console.log("page loaded");
+
+	var keywords = FlowRouter.getQueryParam('keywords');
+	var ISBN = FlowRouter.getQueryParam('ISBN');
+
+	if (!!keywords)
+		results = new MysqlSubscription('keywordSearch', keywords);
+	else if (!!ISBN)
+		results = new MysqlSubscription('ISBNSearch', ISBN);
+
+	window.results = results;
+	console.log(window.results);
+});
+
+Template.Search_results.helpers({
+	results: function() {
+		return results.reactive();
+	},
+});
+
