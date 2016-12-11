@@ -19,14 +19,11 @@ Meteor.publish('keywordSearch', function(input) {
                 FROM Authors a NATURAL JOIN Authored d
                 WHERE (d.ISBN = m.ISBN AND d.insta_no = m.insta_no) AND (${wh_a}))) AND l.lib_id = m.lib_id`;
 
-//              console.log(query);
-
         return liveDb.select(query, [ { table: 'Media' }, {table : 'Authors'}, {table: 'Authored'} ]);
 });
 
 
 Meteor.publish('authorsOf', function(book) {
-
         let query = `SELECT Authors.name FROM Authors NATURAL JOIN Authored d
                 WHERE d.ISBN = ${book.ISBN} AND d.insta_no = ${book.insta_no}`
 
@@ -35,7 +32,6 @@ Meteor.publish('authorsOf', function(book) {
 });
 
 Meteor.publish('ISBNSearch', function(ISBN) {
-        // injection vulnerable...
         return liveDb.select(
                 `SELECT * FROM Media m WHERE m.ISBN = ${ISBN}`,
                 [ { table: 'Media' } ]
@@ -67,7 +63,6 @@ Meteor.publish('libraries', function() {
 });
 
 Meteor.publish('fieldSearch', function(params) {
-
         let ANY = "$ANY";
         let wholeWord = (a => `'([[:blank:]]|[[:punct:]]|^)${a}([[:punct:]}|[[:blank:]]|$)'`)
 
@@ -121,10 +116,8 @@ Meteor.publish('fieldSearch', function(params) {
         // Emptiness propagates - first nonempty is prepepended with WHERE
         // and rest nonempty are prepended with AND
         where = where.reduceRight((a, b) => {
-                // if a empty
                 if (!a)
                         return !!b ? `WHERE (${b})` : "";
-                // if a not empty
                 else
                         return !!b ? a + ` AND (${b})` : a;
         });
@@ -141,8 +134,6 @@ Meteor.publish('fieldSearch', function(params) {
         let query = `SELECT DISTINCT m.*, l.lib_name
                 FROM ${from}
                 ${where};`;
-
-        console.log(query);
 
         return liveDb.select(query, tables);
 });
