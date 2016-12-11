@@ -1,26 +1,40 @@
 <template name="Search_results">
-	<h1 class="page-header">Search Results</h1>
+  <h1 class="page-header">Search Results</h1>
 
-	<table class="table">
-		<thead class="thead-inverse">
-			<tr>
-				<th>ISBN</th>
-				<th>Instance</th>
-				<th>Title</th>
-			</tr>
-		</thead>
-		{{#each results}}
-		<tr>
-			<th>{{ISBN}}</th>
-			<th>{{insta_no}}</th>
-			<th>{{title}}</th>
-		</tr>
-		{{/each}}
-	</table>
+  {{#each results}}
+    <hr>
+    <div class = "card">
+      {{> book}}
+    </div>
+  {{/each}}
 
-	<div id="back">
-		<a href="./search.html">Back</a>
-		<!-- TODO - use routing -->
-	</div>
+  <div id="back">
+    <button type="button" class="btn btn-default">Back</button>
+  </div>
 </template>
 
+<template name="book">
+  <div class = "card-header">
+    <h4>{{title}}</h4>
+    <div id="auth_{{ISBN}}_{{insta_no}}">
+    <form class="get_author">
+      <button type="button" class="btn btn-default" value="{{ISBN}}:{{insta_no}}">Authors?</button>
+    </form>
+    </div>
+  </div>
+  <div class = "card-block">
+    <p class = "card-text">
+    <strong>ISBN: </strong>{{ISBN}}<br>
+    <strong>Status: </strong>{{status}}<br>
+    <strong>Genre: </strong>{{genre}}<br>
+    <strong>Language: </strong>{{language}}<br>
+    <strong>Publisher: </strong>{{publisher}}<br>
+    <strong>Year: </strong>{{year}}<br>
+    <strong>Keywords: </strong>{{keywords}}
+    </p>
+  </div>
+</template>
+
+<template name="authors">
+  
+</template>

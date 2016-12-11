@@ -5,30 +5,47 @@ var liveDb = new LiveMysql(Meteor.settings.mysql);
 Meteor.publish('keywordSearch', function(input) {
 	wh_a = input.split(' ')
 		//.map(a => liveDb.db.escape(a))
-		.map(a => `a.name = '${a}'`)
+		.map(a => `a.name LIKE '%${a}%'`)
 		.reduceRight((a, b) => `${a} OR ${b}`);
 
 	wh_m = input.split(' ')
 		.map(a => `m.title LIKE '%${a}%' OR m.genre = '${a}' OR m.subject = '${a}' OR m.keywords LIKE '%${a}%'`)
 		.reduceRight((a, b) => `${a} OR ${b}`);
 
-        query = `SELECT m2.* FROM
-		((SELECT * FROM Authors a WHERE ${wh_a}) a1 NATURAL JOIN Authored d)
-		RIGHT JOIN (SELECT * FROM Media m WHERE ${wh_m}) t
-        	ON (d.ISBN = t.ISBN AND d.insta_no = t.insta_no), Media m2
-		WHERE t.ISBN = m2.ISBN AND t.insta_no = m2.insta_no`;
-	
-//   	console.log(query);
+        query = `SELECT m.*
+                FROM Media m
+                WHERE (
+                (${wh_m}) OR EXISTS (SELECT *
+                FROM Authors a NATURAL JOIN Authored d
+                WHERE (d.ISBN = m.ISBN AND d.insta_no = m.insta_no) AND (${wh_a})))`;
 
+//		console.log(query);
+	
 	return liveDb.select(query, [ { table: 'Media' }, {table : 'Authors'}, {table: 'Authored'} ]);
+});
+
+
+Meteor.publish('authorsOf', function(book) {
+
+        query = `SELECT Authors.name FROM Authors NATURAL JOIN Authored d
+                WHERE d.ISBN = ${book.ISBN} AND d.insta_no = ${book.insta_no}`
+
+        return liveDb.select(query,
+                [{table : 'Authors'}, {table: 'Authored'}]);
 });
 
 Meteor.publish('ISBNSearch', function(ISBN) {
         // injection vulnerable...
         return liveDb.select(
-                `SELECT * FROM Media m WHERE m.ISBN == ${ISBN}`,
+                `SELECT * FROM Media m WHERE m.ISBN = ${ISBN}`,
                 [ { table: 'Media' } ]
                 );
+});
+
+Meteor.publish('languages', function() {
+	return liveDb.select('SELECT DISTINCT Media.language FROM Media',
+		[ { table: 'Media' } ]
+		);
 });
 
 // Closing connections between hot code-pushes

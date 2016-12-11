@@ -8,7 +8,7 @@ Template.Navbar.onRendered(function() {
         $(`.nav-link.active`).removeClass('active');
         $(`span.sr-only`).remove();
 
-        $(`.nav-link#${route}`).addClass('active';)
+        $(`.nav-link#${route}`).addClass('active');
         $(`nav-link.active`).prepend(`<span class="sr-only">(current)</span>`);
     });
 });
