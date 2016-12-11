@@ -1,5 +1,6 @@
 CREATE TABLE Cardholder(
 	card_id VARCHAR(10) NOT NULL,
+	cname VARCHAR(50) NOT NULL,
 	address CHAR(100) NOT NULL,
 	contact NUMERIC(10,0) NOT NULL,
 	fine 	NUMERIC (5,2),
@@ -9,6 +10,7 @@ CREATE TABLE Cardholder(
 
 CREATE TABLE Library(
 	lib_id 	VARCHAR(10) NOT NULL,
+	lib_name VARCHAR(50) NOT NULL,
 	address CHAR(100) NOT NULL,
 	PRIMARY KEY (lib_id)
 );
@@ -90,7 +92,7 @@ CREATE TABLE Reserve(
 	insta_no NUMERIC(3,0) NOT NULL,
 	card_id VARCHAR(10) NOT NULL, 	
 	dest_lib VARCHAR(10) NOT NULL,
-	checkout DATE NOT NULL,
+	reserveDate DATE NOT NULL,
 	expiry DATE NOT NULL,
 	PRIMARY KEY (ISBN, insta_no, card_id),
 	FOREIGN KEY (ISBN, insta_no) REFERENCES Media (ISBN, insta_no),
