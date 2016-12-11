@@ -10,6 +10,8 @@ var liveDb = new LiveMysql(Meteor.settings.mysql);
 //     );
 // })
 
+export default liveDb;
+
 // Closing connections between hot code-pushes
 // as per https://github.com/numtel/meteor-mysql#closing-connections-between-hot-code-pushes
 var closeAndExit = function() {
