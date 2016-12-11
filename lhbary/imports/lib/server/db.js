@@ -12,12 +12,12 @@ Meteor.publish('keywordSearch', function(input) {
 		.map(a => `m.title LIKE '%${a}%' OR m.genre = '${a}' OR m.subject = '${a}' OR m.keywords LIKE '%${a}%'`)
 		.reduceRight((a, b) => `${a} OR ${b}`);
 
-        query = `SELECT m.*
-                FROM Media m
+        query = `SELECT m.*, l.lib_name
+                FROM Media m, Library l
                 WHERE (
                 (${wh_m}) OR EXISTS (SELECT *
                 FROM Authors a NATURAL JOIN Authored d
-                WHERE (d.ISBN = m.ISBN AND d.insta_no = m.insta_no) AND (${wh_a})))`;
+                WHERE (d.ISBN = m.ISBN AND d.insta_no = m.insta_no) AND (${wh_a}))) AND l.lib_id = m.lib_id`;
 
 //		console.log(query);
 	
@@ -46,6 +46,24 @@ Meteor.publish('languages', function() {
 	return liveDb.select('SELECT DISTINCT Media.language FROM Media',
 		[ { table: 'Media' } ]
 		);
+});
+
+Meteor.publish('genres', function() {
+	return liveDb.select('SELECT DISTINCT Media.genre FROM Media',
+		[ { table: 'Media' } ]
+		);
+});
+
+Meteor.publish('publishers', function() {
+        return liveDb.select('SELECT DISTINCT Media.publisher FROM Media WHERE Media.publisher != ""',
+                [ { table: 'Media' } ]
+                );
+});
+
+Meteor.publish('libraries', function() {
+        return liveDb.select('SELECT DISTINCT l.lib_name FROM Media NATURAL JOIN Library l',
+                [ { table: 'Media' }, { table: 'Library' } ]
+                );
 });
 
 // Closing connections between hot code-pushes

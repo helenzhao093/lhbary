@@ -10,7 +10,7 @@
         <ul id="b-srch" class="nav nav-tabs card-header-tabs float-xs-center pull-xs-center">
           <li id="n-kws" class="nav-item"><a href="#" class="nav-link active">Keyword Search</a></li>
           <li id="n-iss" class="nav-item"><a href="#" class="nav-link">ISBN Search</a></li>
-          <li id="n-fss" class="nav-item"><a href="#" class="nav-link">Field Search</a></li>
+          <li id="n-fss" class="nav-item"><a href="#" class="nav-link">Advanced Search</a></li>
         </ul>
       </div>
       <div class="card-block">
@@ -57,7 +57,7 @@
     </div>
     <form class="form_isbn_search">
       <div class="col-xs-10">
-        <input id="input_isbn" type="text" name="text" class="form-control" placeholder="ISBN (13 digits)"/>
+        <input id="input_isbn" type="number" name="text" class="form-control" placeholder="ISBN (13 digits)"/>
       </div>
       <div class="form-group">
         <!-- <div class="col-xs-offset-2 col-xs-10"> -->
@@ -78,22 +78,64 @@
           <input type="text" name="title" class="form-control" id="input_title" placeholder="Title">
         </div>
       </div><br>
-      <!-- Genre  -->
+      <!-- Authors  -->
       <div class="form-group">
-        <label for="input_genre" class="control-label col-xs-2">Genre</label>
+        <label for="input_authors" class="control-label col-xs-2">Authors</label>
         <div class="col-xs-10">
-          <input type="text" name="genre" class="form-control" id="input_genre" placeholder="Genre">
+          <input type="text" name="authors" class="form-control" id="input_authors" placeholder="Authors">
+        </div>
+      </div><br>
+      <!-- Subject  -->
+      <div class="form-group">
+        <label for="input_subject" class="control-label col-xs-2">Subject</label>
+        <div class="col-xs-10">
+          <input type="text" name="subject" class="form-control" id="input_subject" placeholder="Subject">
+        </div>
+      </div><br>
+      <!-- Keywords  -->
+      <div class="form-group">
+        <label for="input_keywords" class="control-label col-xs-2">Keywords</label>
+        <div class="col-xs-10">
+          <input type="text" name="keywords" class="form-control" id="input_keywords" placeholder="Keywords">
         </div>
       </div><br>
       <!-- Row -->
       <div class="row">
-        <!-- Availability -->
+        <!-- Libraries -->
         <div class="form-group">
-          <label for="input_availability" class="control-label col-xs-2">Availability</label>
+          <label for="input_library" class="control-label col-xs-2">Library</label>
           <div class="col-xs-4">
-            <select name="availability" id="input_availability" class="form-control">
-              <option value="available">Available</option>
-              <option value="unavailable">Not Available</option>
+            <select name="library" id="input_library" class="form-control" multiple>
+              {{#each libraries}}
+              <option>{{lib_name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <!-- Publishers -->
+        <div class="form-group">
+          <label for="input_publishers" class="control-label col-xs-2">Publishers</label>
+          <div class="col-xs-4">
+            <select name="publishers" id="input_publishers" class="form-control" multiple>
+              <option value="">None</option>
+              {{#each publishers}}
+              <option>{{publisher}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Row -->
+      <div class="row">
+        <!-- Genre  -->
+        <div class="form-group">
+          <label for="input_genre" class="control-label col-xs-2">Genre</label>
+          <div class="col-xs-4">
+            <select name="genre" class="form-control" id="input_genre" multiple>
+              {{#each genres}}
+              <option>{{genre}}</option>
+              {{/each}}
             </select>
           </div>
         </div>
@@ -101,7 +143,7 @@
         <div class="form-group">
           <label for="input_language" class="control-label col-xs-2">Language</label>
           <div class="col-xs-4">
-            <select name="language" class="form-control" id="input_language">
+            <select name="language" class="form-control" id="input_language" multiple>
               {{#each languages}}
               <option>{{language}}</option>
               {{/each}}
@@ -109,6 +151,41 @@
           </div>
         </div>
       </div><br>
+
+      <!-- Row -->
+      <div class="row">
+        <!-- Availability -->
+        <div class="form-group">
+          <label for="input_availability" class="control-label col-xs-2">Availability</label>
+          <div class="col-xs-3">
+            <select name="availability" id="input_availability" class="form-control">
+              <option value="$ANY">Either</option>
+              <option value="available">Available</option>
+              <option value="unavailable">Not Available</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Year Selection  -->
+        <div class="form-group">
+          <label for="input_year_sel" class="control-label col-xs-1">Year</label>
+          <div class="col-xs-2">
+            <select name="year_sel" class="form-control" id="input_year_sel">
+              <option value="$ANY">Any</option>
+              <option value="after">After</option>
+              <option value="before">Before</option>
+              <option value="on">On</option>
+            </select>
+          </div>
+        </div>
+        <!-- Year  -->
+        <div class="form-group">
+          <div class="col-xs-4">
+            <input id="input_year" type="number" name="year" class="form-control" placeholder="Year"/>
+          </div>
+        </div>
+      </div><br>
+
       <!-- Submit -->
       <div class="form-group">
         <!-- <div class="col-xs-offset-2 col-xs-10"> -->

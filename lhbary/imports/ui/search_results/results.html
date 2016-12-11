@@ -1,12 +1,14 @@
 <template name="Search_results">
   <h1 class="page-header">Search Results</h1>
 
+  <div id="results">
   {{#each results}}
     <hr>
     <div class = "card">
       {{> book}}
     </div>
   {{/each}}
+  </div>
 
   <div id="back">
     <button type="button" class="btn btn-default">Back</button>
@@ -26,6 +28,7 @@
     <p class = "card-text">
     <strong>ISBN: </strong>{{ISBN}}<br>
     <strong>Status: </strong>{{status}}<br>
+    <strong>At Library: </strong>{{lib_name}}<br>
     <strong>Genre: </strong>{{genre}}<br>
     <strong>Language: </strong>{{language}}<br>
     <strong>Publisher: </strong>{{publisher}}<br>

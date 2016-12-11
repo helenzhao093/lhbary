@@ -20,9 +20,17 @@ Template.Search_results.onCreated(function() {
   console.log(window.results);
 });
 
+var books;
+
+function noResults() {
+  if (!(!!books && books.length)) {
+    $("#results").html("There were no results for your search.");
+  }
+}
+
 Template.Search_results.helpers({
   results: function() {
-    var books = results;
+    books = results;
     books = books.reactive();
     // if (books.length > 0) {
       // window.books = {};
@@ -47,6 +55,8 @@ Template.Search_results.helpers({
 
       // window.books2 = books;
     // }
+    setTimeout(noResults, 1500);
+    
     return books;
   },
 });
