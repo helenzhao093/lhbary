@@ -10,11 +10,30 @@ Template.Search_results.onCreated(function() {
 
   var keywords = FlowRouter.getQueryParam('keywords');
   var ISBN = FlowRouter.getQueryParam('ISBN');
+  var advanced = FlowRouter.getQueryParam('advanced');
 
-  if (!!keywords)
+  if (!!keywords) {
     results = new MysqlSubscription('keywordSearch', keywords);
-  else if (!!ISBN)
+  } else if (!!ISBN) {
     results = new MysqlSubscription('ISBNSearch', ISBN);
+  } else if (!!advanced) {
+    params = {
+      title: FlowRouter.getQueryParam('a_title'),
+      authors: FlowRouter.getQueryParam('a_authors'),
+      subjects: FlowRouter.getQueryParam('a_subjects'),
+      keywords: FlowRouter.getQueryParam('a_keywords'),
+      genre: FlowRouter.getQueryParam('a_genre'),
+      publishers: FlowRouter.getQueryParam('a_publishers'),
+      libraries: FlowRouter.getQueryParam('a_libraries'),
+      language: FlowRouter.getQueryParam('a_language'),
+      availability: FlowRouter.getQueryParam('a_availability'),
+      year_sel: FlowRouter.getQueryParam('a_year_sel'),
+      year: FlowRouter.getQueryParam('a_year')
+    };
+    results = new MysqlSubscription('fieldSearch', params);
+  } else {
+    $("#results").html("An invalid search was specified.");
+  }
 
   window.results = results;
   console.log(window.results);
@@ -55,8 +74,8 @@ Template.Search_results.helpers({
 
       // window.books2 = books;
     // }
-    setTimeout(noResults, 1500);
-    
+    setTimeout(noResults, 10000);
+
     return books;
   },
 });
@@ -92,4 +111,5 @@ Template.book.events({
     var timer = setInterval(checkAuthors, 100);
   }
 });
+
 
