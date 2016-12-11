@@ -9,11 +9,10 @@ var liveDb = new LiveMysql(Meteor.settings.mysql);
 //         [{ table: 'Library' }]
 //     );
 // })
-//Meteor.users.insert({username: 'ACX0125', password: 'hello1'});
+//Meteor.users.insert({email: 'ACX0125@yahoo.com', password: 'hello1'});
 
 
 Meteor.publish('libraryInfo', function(lib){
-    
     return liveDb.select(
 	'SELECT * FROM Library WHERE lib_id = ' + liveDb.db.escape(lib),
 	[{ table: 'Library' }]
@@ -37,11 +36,11 @@ Meteor.publish('reservedAtLib', function(params){
 Meteor.methods({
     'insertCheckout': function(ISBN, insta_no, card_id, checkdate){
 	liveDb.db.query(
-	    'INSERT INTO Checkout VALUES ( ? )', [ISBN, insta_no, card_id, checkdate]);
+	    'INSERT INTO Checkout SET ISBN = ?, insta_no = ?, card_id = ?, dateout = ?', [ISBN, insta_no, card_id, checkdate]);
     }
 });
 
-
+export default liveDb;
 // Closing connections between hot code-pushes
 // as per https://github.com/numtel/meteor-mysql#closing-connections-between-hot-code-pushes
 
@@ -49,5 +48,6 @@ var closeAndExit = function() {
     liveDb.end();
     process.exit();
 };
+
 process.on('SIGTERM', closeAndExit);
 process.on('SIGINT', closeAndExit);
