@@ -1,19 +1,44 @@
-<head>
-	<title>Search Results</title>
-</head>
+<template name="Search_results">
+  <h1 class="page-header">Search Results</h1>
 
-<body>
-	<ul>
-		{{#each results}}
-			{{> result}}
-		{{/each}}
-	</ul>
+  <div id="results">
+  {{#each results}}
+    <hr>
+    <div class = "card">
+      {{> book}}
+    </div>
+  {{/each}}
+  </div>
 
-	<div id="back">
-		<a href="./search.html">Back</a>
-	</div>
-</body>
+  <div id="back">
+    <button type="button" class="btn btn-default">Back</button>
+  </div>
+</template>
 
-<template name="result">
-	
+<template name="book">
+  <div class = "card-header">
+    <h4>{{title}}</h4>
+    <div id="auth_{{ISBN}}_{{insta_no}}">
+    <form class="get_author">
+      <button type="button" class="btn btn-default" value="{{ISBN}}:{{insta_no}}">Authors?</button>
+    </form>
+    </div>
+  </div>
+  <div class = "card-block">
+    <p class = "card-text">
+    <strong>ISBN: </strong>{{ISBN}}<br>
+    <strong>Status: </strong>{{status}}<br>
+    <strong>At Library: </strong>{{lib_name}}<br>
+    <strong>Genre: </strong>{{genre}}<br>
+    <strong>Language: </strong>{{language}}<br>
+    <strong>Publisher: </strong>{{publisher}}<br>
+    <strong>Year: </strong>{{year}}<br>
+    <strong>Subjects: </strong>{{subject}}<br>
+    <strong>Keywords: </strong>{{keywords}}
+    </p>
+  </div>
+</template>
+
+<template name="authors">
+  
 </template>
