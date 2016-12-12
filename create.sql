@@ -1,6 +1,7 @@
 CREATE TABLE Cardholder(
 	card_id VARCHAR(10) NOT NULL,
 	address CHAR(100) NOT NULL,
+	cname VARCHAR(50) NOT NULL, 
 	contact NUMERIC(10,0) NOT NULL,
 	fine 	NUMERIC (5,2),
 	delinquent BOOLEAN,
@@ -9,6 +10,7 @@ CREATE TABLE Cardholder(
 
 CREATE TABLE Library(
 	lib_id 	VARCHAR(10) NOT NULL,
+	lib_name VARCHAR(50) NOT NULL,
 	address CHAR(100) NOT NULL,
 	PRIMARY KEY (lib_id)
 );
@@ -79,7 +81,7 @@ CREATE TABLE Checkout(
 	dateout DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 	expiry DATETIME NOT NULL,
 	# should be system variable
-	renewals INT DEFAULT 0,
+	renewals NUMERIC(1,0) DEFAULT 0,
 	PRIMARY KEY (ISBN, insta_no, card_id),
 	FOREIGN KEY (ISBN, insta_no) REFERENCES Media (ISBN, insta_no),
 	FOREIGN KEY (card_id) REFERENCES Cardholder (card_id)

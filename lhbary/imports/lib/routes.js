@@ -1,9 +1,15 @@
 import './at_config.js';
-
 import '../ui/layout.js';
 import '../ui/home/home.js';
 import '../ui/login/login.js';
 import '../ui/dashboard/dashboard.js';
+import '../ui/admindash/admindash.js';
+import '../ui/checkout/checkout.js';
+import '../ui/confirm/confirm.js';
+import '../ui/error/error.js';
+import '../ui/search/search.js';
+import '../ui/search_results/results.js';
+import '../ui/notFoundPage/notFoundPage.js';
 
 //Home page
 FlowRouter.route('/', {
@@ -24,8 +30,6 @@ FlowRouter.route('/search', {
 //Search results
 FlowRouter.route('/search_results', {
     action: function(params, queryParams) {
-        //TODO: How do we get the data from the server to the client2
-        //Picker? https://github.com/meteorhacks/picker
         BlazeLayout.render('App_layout', {main: 'Search_results'});
     },
     name: 'search_results',
@@ -48,6 +52,20 @@ FlowRouter.route('/checkout', {
     name: 'checkout',
 });
 
+FlowRouter.route('/confirm', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'Confirm'});
+    },
+    name: 'confirm',
+});
+
+FlowRouter.route('/error', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'Error'});
+    },
+    name: 'error',
+});
+
 //Login page
 // FlowRouter.route('/login', {
 //     action: function() {
@@ -65,3 +83,17 @@ AccountsTemplates.configureRoute('signIn', {
     contentRegion: 'main',
     redirect: '/dashboard',
 });
+
+// 404 page
+FlowRouter.route('/notFoundPage', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'notFoundPage'});
+    },
+    name: 'notFoundPage',
+});
+
+FlowRouter.notFound = {
+    action: function() {
+	FlowRouter.go('/notFoundPage');
+    }
+};

@@ -1,0 +1,5 @@
+<template name="Confirm">
+  <h1>Checkout Confirmed!</h1>
+    <p>{{cardid}} checked out medium {{ISBN}} {{instance}}</p>
+  <button class="btn btn-primary" id="checkout">Back To Checkout</button>
+</template>

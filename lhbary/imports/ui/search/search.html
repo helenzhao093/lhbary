@@ -1,28 +1,198 @@
-<head>
-	<title>Search</title>
-</head>
+<template name="Search">
+  <h1>Search</h1>
+  {{> search_index}}
+</template>
 
-<body>
-	<!-- Displayed plainly -->
-	<div id="keyword_search">
-		Search by keyword (Title, Keywords, Author):
-		{{> keyword_search}}
-	</div>
+<template name="search_index">
+  <div class="container-fluid">
+    <div class="card text-xs-center">
+      <div class="card-header">
+        <ul id="b-srch" class="nav nav-tabs card-header-tabs float-xs-center pull-xs-center">
+          <li id="n-kws" class="nav-item"><a href="#" class="nav-link active">Keyword Search</a></li>
+          <li id="n-iss" class="nav-item"><a href="#" class="nav-link">ISBN Search</a></li>
+          <li id="n-fss" class="nav-item"><a href="#" class="nav-link">Advanced Search</a></li>
+        </ul>
+      </div>
+      <div class="card-block">
+        <div id="keyword_search">
+          {{> keyword_search}}
+        </div>
 
-	<div class="dropdown">
-		<div id="advanced_search">
-			Advanced search:
-			{{> advanced_search}}
-		</div>
-	</div>
-</body>
+        <div id="isbn_search" style="display: none;">
+          {{> isbn_search}}
+        </div>
+
+        <div id="field_search" style="display: none;">
+          {{> field_search}}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <template name="keyword_search">
-	<form class="form_simple_search">
-		<input type="text" name="text" placeholder="Enter a title"/>
-	</form>
+  <div id="div_keyword_search">
+    <!-- Search by Keyword -->
+    <label for="input_keywords" class="control-label col-xs-2">Title, Genre, Author</label>
+    <!-- <div class="col-xs-10"> -->
+    <form class="form_simple_search form-horizontal">
+      <div class="col-xs-10">
+        <input id="input_keywords" class="form-control" type="text" name="text" placeholder="Enter titles, genres, authors, or other keywords"/>
+      </div>
+      <div class="form-group">
+        <!-- <div class="col-xs-offset-2 col-xs-10"> -->
+          <button type="submit" class="btn btn-primary">Submit</button>
+        <!-- </div> -->
+      </div>
+    </form>
+    <!-- </div> -->
+  </div>
 </template>
 
-<template name="advanced_search">
-	
+<template name="isbn_search">
+  <div id="div_isbn_search">
+    <label for="input_isbn" class="control-label col-xs-2">ISBN</label>
+    <div id="warning" class = "alert alert-warning fade in" style="display: none;">
+      <strong>Please enter a valid ISBN number.</strong> ISBN numbers are 13 digits long.
+    </div>
+    <form class="form_isbn_search">
+      <div class="col-xs-10">
+        <input id="input_isbn" type="number" name="text" class="form-control" placeholder="ISBN (13 digits)"/>
+      </div>
+      <div class="form-group">
+        <!-- <div class="col-xs-offset-2 col-xs-10"> -->
+          <button type="submit" class="btn btn-primary">Submit</button>
+        <!-- </div> -->
+      </div>
+    </form>
+  </div>
 </template>
+
+<template name="field_search">
+  <div id="div_field_search">
+    <form id="field_search" class="form-horizontal">
+      <!-- Title  -->
+      <div class="form-group">
+        <label for="input_title" class="control-label col-xs-2">Title</label>
+        <div class="col-xs-10">
+          <input type="text" name="title" class="form-control" id="input_title" placeholder="Title">
+        </div>
+      </div><br>
+      <!-- Authors  -->
+      <div class="form-group">
+        <label for="input_authors" class="control-label col-xs-2">Authors</label>
+        <div class="col-xs-10">
+          <input type="text" name="authors" class="form-control" id="input_authors" placeholder="Authors">
+        </div>
+      </div><br>
+      <!-- Subject  -->
+      <div class="form-group">
+        <label for="input_subject" class="control-label col-xs-2">Subject</label>
+        <div class="col-xs-10">
+          <input type="text" name="subject" class="form-control" id="input_subject" placeholder="Subject">
+        </div>
+      </div><br>
+      <!-- Keywords  -->
+      <div class="form-group">
+        <label for="input_keywords" class="control-label col-xs-2">Keywords</label>
+        <div class="col-xs-10">
+          <input type="text" name="keywords" class="form-control" id="input_keywords" placeholder="Keywords">
+        </div>
+      </div><br>
+      <!-- Row -->
+      <div class="row">
+        <!-- Libraries -->
+        <div class="form-group">
+          <label for="input_library" class="control-label col-xs-2">Library</label>
+          <div class="col-xs-4">
+            <select name="library" id="input_libraries" class="form-control" multiple>
+              {{#each libraries}}
+              <option>{{lib_name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+
+        <!-- Publishers -->
+        <div class="form-group">
+          <label for="input_publishers" class="control-label col-xs-2">Publishers</label>
+          <div class="col-xs-4">
+            <select name="publishers" id="input_publishers" class="form-control" multiple>
+              <option value="&quot;&quot;">None</option>
+              {{#each publishers}}
+              <option>{{publisher}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- Row -->
+      <div class="row">
+        <!-- Genre  -->
+        <div class="form-group">
+          <label for="input_genre" class="control-label col-xs-2">Genre</label>
+          <div class="col-xs-4">
+            <select name="genre" class="form-control" id="input_genre" multiple>
+              {{#each genres}}
+              <option>{{genre}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <!-- Languages  -->
+        <div class="form-group">
+          <label for="input_language" class="control-label col-xs-2">Language</label>
+          <div class="col-xs-4">
+            <select name="language" class="form-control" id="input_language" multiple>
+              {{#each languages}}
+              <option>{{language}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      </div><br>
+
+      <!-- Row -->
+      <div class="row">
+        <!-- Availability -->
+        <div class="form-group">
+          <label for="input_availability" class="control-label col-xs-2">Availability</label>
+          <div class="col-xs-3">
+            <select name="availability" id="input_availability" class="form-control">
+              <option value="$ANY">Either</option>
+              <option value="available">Available</option>
+              <option value="unavailable">Not Available</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Year Selection  -->
+        <div class="form-group">
+          <label for="input_year_sel" class="control-label col-xs-1">Year</label>
+          <div class="col-xs-2">
+            <select name="year_sel" class="form-control" id="input_year_sel">
+              <option value="$ANY">Any</option>
+              <option value=">">After</option>
+              <option value="<">Before</option>
+              <option value="=">On</option>
+            </select>
+          </div>
+        </div>
+        <!-- Year  -->
+        <div class="form-group">
+          <div class="col-xs-4">
+            <input id="input_year" type="number" name="year" class="form-control" placeholder="Year"/>
+          </div>
+        </div>
+      </div><br>
+
+      <!-- Submit -->
+      <div class="form-group">
+        <!-- <div class="col-xs-offset-2 col-xs-10"> -->
+          <button type="submit" class="btn btn-primary">Submit</button>
+        <!-- </div> -->
+      </div>
+    </form>
+  </div>
+</template>
+
