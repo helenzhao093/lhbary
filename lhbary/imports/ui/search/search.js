@@ -8,7 +8,7 @@ function isInteger(n) {
   return (parseFloat(n) == parseInt(n)) && !isNaN(n) && isFinite(n);
 }
 
-Template.index.events({
+Template.search_index.events({
   'click #n-kws'(event) {
     $("#b-srch a").removeClass("active");
     $("#b-srch #n-kws a").addClass("active");
