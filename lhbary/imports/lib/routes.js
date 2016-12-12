@@ -1,5 +1,11 @@
+import './at_config.js';
 import '../ui/layout.js';
 import '../ui/home/home.js';
+import '../ui/login/login.js';
+import '../ui/admindash/admindash.js';
+import '../ui/checkout/checkout.js';
+import '../ui/confirm/confirm.js';
+import '../ui/error/error.js';
 import '../ui/search/search.js';
 import '../ui/search_results/results.js';
 import '../ui/notFoundPage/notFoundPage.js';
@@ -30,7 +36,7 @@ FlowRouter.route('/search_results', {
 
 //Dashboard
 FlowRouter.route('/dashboard', {
-    //TODO: Logged-in logic
+    triggersEnter: [AccountsTemplates.ensureSignedIn],
     action: function() {
         BlazeLayout.render('App_layout', {main: 'Dashboard'});
     },
@@ -45,12 +51,36 @@ FlowRouter.route('/checkout', {
     name: 'checkout',
 });
 
-//Login page
-FlowRouter.route('/login', {
+FlowRouter.route('/confirm', {
     action: function() {
-        BlazeLayout.render('App_layout', {main: 'Login'});
+	BlazeLayout.render('App_layout', {main: 'Confirm'});
     },
+    name: 'confirm',
+});
+
+FlowRouter.route('/error', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'Error'});
+    },
+    name: 'error',
+});
+
+//Login page
+// FlowRouter.route('/login', {
+//     action: function() {
+//         BlazeLayout.render('App_layout', {main: 'Login'});
+//     },
+//     name: 'login',
+// });
+
+AccountsTemplates.configureRoute('signIn', {
+    layoutType: 'blaze',
     name: 'login',
+    path: '/login',
+    layoutTemplate: 'App_layout',
+    layoutRegions: {},
+    contentRegion: 'main',
+    redirect: '/dashboard',
 });
 
 // 404 page

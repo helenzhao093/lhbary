@@ -24,3 +24,9 @@ kadira:flow-router
 kadira:blaze-layout
 pcel:mysql
 twbs:bootstrap@=4.0.0-alpha.2
+accounts-ui
+accounts-password
+accounts-base
+useraccounts:bootstrap
+useraccounts:flow-routing
+momentjs:moment
