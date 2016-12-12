@@ -29,4 +29,6 @@ accounts-password
 accounts-base
 useraccounts:bootstrap
 useraccounts:flow-routing
+session
+u2622:persistent-session
 momentjs:moment
