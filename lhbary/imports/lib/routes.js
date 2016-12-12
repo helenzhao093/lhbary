@@ -2,7 +2,7 @@ import '../ui/layout.js';
 import '../ui/home/home.js';
 import '../ui/search/search.js';
 import '../ui/search_results/results.js';
-
+import '../ui/notFoundPage/notFoundPage.js';
 
 //Home page
 FlowRouter.route('/', {
@@ -52,3 +52,17 @@ FlowRouter.route('/login', {
     },
     name: 'login',
 });
+
+// 404 page
+FlowRouter.route('/notFoundPage', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'notFoundPage'});
+    },
+    name: 'notFoundPage',
+});
+
+FlowRouter.notFound = {
+    action: function() {
+	FlowRouter.go('/notFoundPage');
+    }
+};
