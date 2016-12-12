@@ -3,7 +3,6 @@ import '../ui/layout.js';
 import '../ui/home/home.js';
 import '../ui/login/login.js';
 import '../ui/dashboard/dashboard.js';
-import '../ui/admindash/admindash.js';
 import '../ui/checkout/checkout.js';
 import '../ui/confirm/confirm.js';
 import '../ui/error/error.js';
