@@ -1,6 +1,5 @@
-// Add to active page
-// <span class="sr-only">(current)</span>
 import './navbar.html';
+import './navbar.css';
 
 Template.Navbar.onRendered(function() {
     Tracker.autorun(function() {
@@ -14,8 +13,8 @@ Template.Navbar.onRendered(function() {
 });
 
 Template.Navbar.events({
-    'click .nav-link'(event) {
+    'click .nav-item'(event) {
         event.preventDefault();
-        FlowRouter.go(event.target.id);
+        FlowRouter.go(event.currentTarget.id);
     }
 });

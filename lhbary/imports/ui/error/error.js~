@@ -1,0 +1,9 @@
+import { Template } from 'meteor/templating';
+import './error.html';
+
+Template.Error.events({
+    'click #backToCheckOut'(event){
+	event.preventDefault();
+	FlowRouter.go("/checkout");
+    }
+});
