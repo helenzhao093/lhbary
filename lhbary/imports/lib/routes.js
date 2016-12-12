@@ -1,8 +1,11 @@
 import './at_config.js';
-
 import '../ui/layout.js';
 import '../ui/home/home.js';
 import '../ui/login/login.js';
+import '../ui/admindash/admindash.js';
+import '../ui/checkout/checkout.js';
+import '../ui/confirm/confirm.js';
+import '../ui/error/error.js';
 
 //Home page
 FlowRouter.route('/', {
@@ -46,6 +49,21 @@ FlowRouter.route('/checkout', {
     },
     name: 'checkout',
 });
+
+FlowRouter.route('/confirm', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'Confirm'});
+    },
+    name: 'confirm',
+});
+
+FlowRouter.route('/error', {
+    action: function() {
+	BlazeLayout.render('App_layout', {main: 'Error'});
+    },
+    name: 'error',
+});
+
 
 //Login page
 // FlowRouter.route('/login', {
