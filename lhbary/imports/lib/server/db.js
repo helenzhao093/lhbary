@@ -168,7 +168,7 @@ Meteor.publish('checkoutMedia', function(lib){
 
 Meteor.publish('reservedAtLib', function(lib){
     return liveDb.select(
-	'SELECT M.ISBN, M.insta_no, M.title, M.card_id, R.expiry FROM Reserve R NATURAL JOIN Media M WHERE dest_lib = ' + liveDb.db.escape(lib),
+	'SELECT M.ISBN, M.insta_no, M.title, R.card_id, R.expiry FROM Reserve R NATURAL JOIN Media M WHERE dest_lib = ' + liveDb.db.escape(lib),
 	[{ table: 'Reserve' }, {table: 'Media'}]
     );
 })
