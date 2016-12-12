@@ -3,6 +3,7 @@ import './at_config.js';
 import '../ui/layout.js';
 import '../ui/home/home.js';
 import '../ui/login/login.js';
+import '../ui/dashboard/dashboard.js';
 
 //Home page
 FlowRouter.route('/', {

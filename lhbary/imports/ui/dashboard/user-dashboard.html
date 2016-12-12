@@ -1,0 +1,92 @@
+<template name="user_dashboard">
+    <h1>User Dashboard</h1>
+    <ul class="nav nav-pills">
+        <li id="account" role="presentation" class="nav-item"><a class="nav-link" href="#">Account Overview</a></li>
+        <li id="checkedOut" role="presentation" class="nav-item"><a class="nav-link" href="#">Items Checked Out</a></li>
+        <li id="reserved" role="presentation" class="nav-item"><a class="nav-link" href="#">Items Reserved</a></li>
+    </ul>
+    {{> Template.dynamic template=currentTab data=tabData}}
+</template>
+
+<template name="account">
+    {{#each this}}
+    <h3 class="page-header">Account Overview</h3>
+    <div class="card card-block">
+        <h3 class="card-title">{{cname}}</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4"><strong class="info_header">Card ID:</strong></div>
+                <div class="col-xs-8">{{card_id}}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4"><strong class="info_header">Address:</strong></div>
+                <div class="col-xs-8">{{address}}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4"><strong class="info_header">Email:</strong></div>
+                <div class="col-xs-8">{{email}}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4"><strong class="info_header">Phone #:</strong></div>
+                <div class="col-xs-8">{{phone_no}}</div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</template>
+
+<template name="checkedOut">
+    <h3 class="page-header">Items Checked Out</h3>
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+	              <th>Title</th>
+	              <th>Checked out</th>
+	              <th>Due Date</th>
+	              <th>Renew</th>
+            </tr>
+        </thead>
+        {{#each this}}
+        <tr>
+            <th>{{title}}</th>
+            <th>{{dateout}}</th>
+            <th>{{expiry}}</th>
+            <th>{{>renew_button}}</th>
+        </tr>
+        {{/each}}
+    </table>
+</template>
+
+<template name="renew_button">
+    <button type="button" class="btn {{style}} renew">
+        {{renewals_left}} Renewals remaining
+    </button>
+</template>
+
+<template name="reserved">
+    <h3 class="page-header">Items Reserved</h3>
+    <table class="table">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Title</th>
+                <th>Reservation Expires</th>
+                <th>Pickup location</th>
+                <th>Cancel</th>
+            </tr>
+        </thead>
+        {{#each this}}
+        <tr>
+            <th>{{title}}</th>
+            <th>{{expiry}}</th>
+            <th>{{lib_name}}</th>
+            <th>{{>cancel_button}}</th>
+        </tr>
+        {{/each}}
+    </table>
+</template>
+
+<template name="cancel_button">
+    <button type="button" class="btn btn-danger cancel">
+        Cancel Reservation
+    </button>
+</template>
