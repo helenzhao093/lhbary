@@ -1,9 +1,9 @@
 # EECS 341 Project.
 
-### Group:
-- Yidi Huang
-- Zicheng (Brian) Gao
-- Helen Zhao
+### Authors:
+- [Zicheng (Brian) Gao](https://github.com/Kaynato)
+- [Helen Zhao](https://github.com/helenzhao093)
+- [Yidi Huang](https://github.com/huangy6)
 
 ### To Run:
 
