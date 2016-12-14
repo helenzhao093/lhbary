@@ -15,10 +15,10 @@ CREATE TRIGGER MaxCheckout
 	END IF;
 
 # The cardholder can not renew a book more than 2 times. When a cardholder renews a checked out book, the expiry date extends 3 weeks. 
-CREATE TRIGGER ValueUpdate 
-	AFTER UPDATE ON Checkout 
+CREATE TRIGGER Renewal
+	BEFORE UPDATE ON Checkout 
 	FOR EACH ROW 
-	UPDATE Checkout SET expiry = DATE_ADD(expiry, INTERVAL 3 WEEK);
+	UPDATE Checkout SET NEW.expiry = DATE_ADD(OLD.expiry, INTERVAL 3 WEEK);
 
 ALTER TABLE Checkout 
 	ADD CONSTRAINT maxRenewals CHECK (renewals < 3) ;
